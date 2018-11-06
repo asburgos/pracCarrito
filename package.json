@@ -1,0 +1,23 @@
+{
+  "name": "praccarrito",
+  "version": "0.0.1",
+  "description": "Esta práctica trata sobre la selección de unos productos, cargados desde un csv, y haciendo una selección de ellos para crear otro csv nuevo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/burgoxlol/pracCarrito.git"
+  },
+  "author": "fabian y alejandro",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/burgoxlol/pracCarrito/issues"
+  },
+  "homepage": "https://github.com/burgoxlol/pracCarrito#readme",
+  "dependencies": {
+    "bootstrap": "^4.1.3",
+    "jquery": "^3.3.1"
+  }
+}
