@@ -28,5 +28,12 @@
                 }
             })
         });
+
+        function enviar(elementId){
+            var padre = document.getElementById(elementId);
+            var childs = padre.childNodes().value;
+            return {id:childs[0],nombre:childs[1],precio:childs[2]};
+        }
+
     </script>
 </html>
