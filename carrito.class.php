@@ -6,20 +6,20 @@ define ("FICHERO", "productos.csv");
 
 class carrito {
   
-   
-    public function leerScv(){
+  
+    function leerScv(){
         $aData = array();
         $row = 0;
         if (($gestor = fopen(FICHERO, "r")) !== FALSE) {
-            while (($data = fgetcsv($gestor, 1000, ";")) !== FALSE) {
+            while (($data = fgetcsv($gestor,1000,";")) !== FALSE) {
                 $aData[$row] = $data;
                 $row++;
             }
             fclose($gestor);
         }
         return $aData;
-    } 
-    public function crearTablaProductos ($array){
+    }
+    public function crearTablaProductos ($data){
         $html='<table class="table">
                <thead>
                  <tr>
@@ -30,7 +30,7 @@ class carrito {
                  </tr>
                </thead>
                <tbody>';
-        foreach ($array as &$value) {
+        foreach ($data as $value) {
             $html .='<tr id="$value[0]">
                     <th scope="row">'.$value[0].'</th>
                     <td>'.$value[1].'</td>
