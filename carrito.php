@@ -4,5 +4,5 @@ error_reporting(E_ALL ^ E_NOTICE);
 require_once 'compras.class.php';
 
 $compras = new carrito();
-echo($compras->leerScv());
+$compras->crearTablaProductos($compras->leerScv());
 

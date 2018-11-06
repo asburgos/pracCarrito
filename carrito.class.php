@@ -38,10 +38,10 @@ class carrito {
                <tbody>';
         foreach ($array as $value) {
             $html .='<tr>
-                    <th scope="row">'.$value[0].'</th>
-                    <td>'.$value[1].'</td>
-                    <td>'.$value[4].'</td>
-                    <td><button type="button" class="btn btn-primary">+</button></td>
+                    <th scope="row" id="'.$value[0].'">'.$value[0].'</th>
+                    <td for="'.$value[0].'">'.$value[1].'</td>
+                    <td for="'.$value[0].'">'.$value[4].'</td>
+                    <td><button type="button" class="btn btn-primary" oncick="enviar('.$value[0].')">+</button></td>
                   </tr>';
         }
         $html .='</tbody></table>';
