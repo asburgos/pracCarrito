@@ -36,16 +36,15 @@ class carrito {
                  </tr>
                </thead>
                <tbody>';
-  
-
- /* <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-  </tbody>
-</table>*/
+        foreach ($array as $value) {
+            $html +='<tr>
+                    <th scope="row">'.$value[0].'</th>
+                    <td>'.$value[1].'</td>
+                    <td>'.$value[4].'</td>
+                    <td><button type="button" class="btn btn-primary">+</button></td>
+                  </tr>';
+        }
+        $html +='</tbody></table>';
+        return $html;
     }
 }
