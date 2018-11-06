@@ -33,9 +33,9 @@
 
         function enviar(elementId){
             var padre = document.getElementById(elementId);
-            var hijos = padre.childNodes();
-            return {id:hijos[0].textContent,nombre:hijos[1].textContent,precio:hijos[2].textContent}
-
+            var hijos = padre.childNodes;
+            console.log(hijos[1].textContent+" "+hijos[3].textContent+" "+hijos[5].textContent);
+            return {id:hijos[0].textContent,nombre:hijos[1].textContent,precio:hijos[2].textContent};
         }
 
     </script>

@@ -31,7 +31,7 @@ class carrito {
                </thead>
                <tbody>';
         foreach ($data as $value) {
-            $html .='<tr id="$value[0]">
+            $html .='<tr id="'.$value[0].'">
                     <th scope="row">'.$value[0].'</th>
                     <td>'.$value[1].'</td>
                     <td>'.$value[4].' €</td>
