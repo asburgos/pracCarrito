@@ -33,7 +33,7 @@
 
         function enviar(elementId){
             var childs = elementId.childNodes();
-            return {id:childs[0],nombre:childs[1],precio:childs[2]};
+            return {id:childs[0].textContent,nombre:childs[1].textContent,precio:childs[2].textContent};
         }
     </script>
 </html>
