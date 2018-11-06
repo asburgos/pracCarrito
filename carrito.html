@@ -24,17 +24,18 @@
                 type: "POST",
                 url: "carrito.php",
                 success: function (response) {
-                    $("#divProductos").html(JSON.parse(response));
+                    var data = JSON.parse(response);
+                    $("#divProductos").html(data);
                 }
             })
         });
 
         function enviar(elementId){
-            //var childs = elementId.childNodes();
-            //return {id:childs[0].textContent,nombre:childs[1].textContent,precio:childs[2].textContent}
-            var padre = document.getElementById(elementId);
-            var childs = padre.childNodes().value;
-            return {id:childs[0],nombre:childs[1],precio:childs[2]};
+            var hijos = elementId.childNodes();
+            return {id:hijos[0].textContent,nombre:hijos[1].textContent,precio:hijos[2].textContent}
+            //var padre = document.getElementById(elementId);
+            //var childs = padre.childNodes().value;
+            //return {id:childs[0],nombre:childs[1],precio:childs[2]};
         }
 
     </script>
