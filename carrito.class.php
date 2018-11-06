@@ -37,14 +37,14 @@ class carrito {
                </thead>
                <tbody>';
         foreach ($array as $value) {
-            $html +='<tr>
+            $html .='<tr>
                     <th scope="row">'.$value[0].'</th>
                     <td>'.$value[1].'</td>
                     <td>'.$value[4].'</td>
                     <td><button type="button" class="btn btn-primary">+</button></td>
                   </tr>';
         }
-        $html +='</tbody></table>';
+        $html .='</tbody></table>';
         return $html;
     }
 }
