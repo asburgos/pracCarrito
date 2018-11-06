@@ -5,25 +5,22 @@ define ("RUTA","/var/www/datas/");
 define ("FICHERO", "productos.csv");
 
 class carrito {
-    private $doc;
   
     public function __construct() {
-        if(!file_exists(FICHERO)){
-            return json_encode(array("status" => "ko", "message" => "Debe introducir un artista primero"));
-        }
-        $this->doc = fopen(FICHERO, "r");
+        fclose($gestor);
     }
-    public function __destruct() {
-        fclose($this->doc);
-    }
+   
     public function leerScv(){
-        $datos = fgetcsv($this->doc, ";");
-        $num = count($datos);
-
-        for ($columna = 0; $columna < $num; ++$columna) {
-            $elementos []= explode(";", $datos[$columna]);
+        $aData = array();
+        $row = 0;
+        if (($gestor = fopen(FICHERO, "r")) !== FALSE) {
+            while (($data = fgetcsv($gestor, 1000, ";")) !== FALSE) {
+                $aData[$row] = $data;
+                $row++;
+            }
+            fclose($gestor);
         }
-        return $elementos;
+        return $aData;
     } 
     public function crearTablaProductos ($array){
         $html='<table class="table">
@@ -37,13 +34,11 @@ class carrito {
                </thead>
                <tbody>';
         foreach ($array as $value) {
-
             $html .='<tr id="$value[0]">
                     <th scope="row">'.$value[0].'</th>
                     <td>'.$value[1].'</td>
                     <td>'.$value[4].' €</td>
                     <td><button type="button" class="btn btn-primary" onclick="enviar('.$value[0].')">+</button></td>
-
                   </tr>';
         }
         $html .='</tbody></table>';
