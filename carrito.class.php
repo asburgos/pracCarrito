@@ -5,7 +5,7 @@ define ("RUTA","/var/www/datas/");
 define ("FICHERO", "productos.csv");
 
 class carrito {
-  
+    private $listaCompra =[];
   
     function leerScv(){
         $aData = array();
@@ -40,5 +40,19 @@ class carrito {
         }
         $html .='</tbody></table>';
         return $html;
+    }
+    public function insertaCarrito($datas){
+       /* $contador = 1;
+        if(isset($this->listaCompra)==$datas[1]){
+            
+        }
+        $this->listaCompra [] = $datas;*/
+        $html ='<tr id="'.$datas[1].'">
+                <th scope="row">'.$datas[3].'</th>
+                <td>'.$datas[1].'</td>
+                <td>'.$datas[2].'</td>
+              </tr>';
+        
+      return $html;
     }
 }

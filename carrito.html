@@ -13,7 +13,20 @@
         <header><h1>Compras</h1></header>
         <main class="container row">
             <section class="col-6" id="divProductos"></section>
-            <section class="col-6" id="divCarrito"></section>
+            <section class="col-6">
+                <table class="table">
+                   <thead>
+                     <tr>
+                       <th scope="col">ID</th>
+                       <th scope="col">PRODUCTOS</th>
+                       <th scope="col">PRECIO</th>
+                       <th scope="col"></th>
+                     </tr>
+                   </thead>
+                   <tbody id="divCarrito">
+                   </tbody>
+                </table>
+            </section>
         </main>
         <footer>
             <h3>Echo por Alejandro y Fabian</h3>
@@ -24,6 +37,7 @@
             $.ajax({
                 type: "POST",
                 url: "carrito.php",
+                data:{accion:'listar'},
                 success: function (response) {
                     var data = JSON.parse(response);
                     $("#divProductos").html(data);
@@ -32,10 +46,24 @@
         });
 
         function enviar(elementId){
+            var carrito = document.getElementById("divCarrito");
             var padre = document.getElementById(elementId);
             var hijos = padre.childNodes;
-            console.log(hijos[1].textContent+" "+hijos[3].textContent+" "+hijos[5].textContent);
-            return {id:hijos[0].textContent,nombre:hijos[1].textContent,precio:hijos[2].textContent};
+       
+            $.ajax({
+                type: "POST",
+                url: "carrito.php",
+                data: {id:hijos[1].textContent,nombre:hijos[3].textContent,precio:hijos[5].textContent,accion:"anadir"},
+                success: function (response) {
+                    var data = JSON.parse(response);
+                    if(data.accion == 'aumentar'){
+                        document.getElementById(data.id).innerHTML = data.html;
+                    }
+                    if(data.accion == 'nuevo'){
+                       carrito.innerHTML += data.html;
+                    }
+                }
+            }) 
         }
 
     </script>
