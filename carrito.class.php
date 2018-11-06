@@ -39,9 +39,9 @@ class carrito {
         foreach ($array as $value) {
 
             $html .='<tr id="$value[0]">
-                    <th scope="row" class="'.$value[0].'-child">'.$value[0].'</th>
-                    <td class='.$value[0].'-child">'.$value[1].'</td>
-                    <td class="'.$value[0].'-child">'.$value[4].'</td>
+                    <th scope="row">'.$value[0].'</th>
+                    <td>'.$value[1].'</td>
+                    <td>'.$value[4].' €</td>
                     <td><button type="button" class="btn btn-primary" onclick="enviar('.$value[0].')">+</button></td>
 
                   </tr>';
