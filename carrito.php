@@ -4,5 +4,5 @@ error_reporting(E_ALL ^ E_NOTICE);
 require_once 'compras.class.php';
 
 $compras = new carrito();
-$compras->crearTablaProductos($compras->leerScv());
+echo json_encode($compras->crearTablaProductos($compras->leerScv()));
 
