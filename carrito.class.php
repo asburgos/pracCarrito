@@ -4,7 +4,7 @@ error_reporting(E_ALL ^ E_NOTICE);
 define ("RUTA","/var/www/datas/");
 define ("FICHERO", "productos.csv");
 
-class compras {
+class carrito {
     private $doc;
   
     public function __construct() {
