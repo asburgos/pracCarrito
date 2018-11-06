@@ -30,6 +30,8 @@
         });
 
         function enviar(elementId){
+            //var childs = elementId.childNodes();
+            //return {id:childs[0].textContent,nombre:childs[1].textContent,precio:childs[2].textContent}
             var padre = document.getElementById(elementId);
             var hijo = padre.childNodes().value;
             return {id:hijo[0],nombre:hijo[1],precio:hijo[2]};
