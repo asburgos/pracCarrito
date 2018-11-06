@@ -19,6 +19,14 @@
         </footer>
     </body>
     <script>
-
+        $(document).ready(function(){
+            $.ajax({
+                type: "POST",
+                url: "carrito.php",
+                success: function (response) {
+                    $("#divProductos").html(JSON.parse(response));
+                }
+            })
+        })
     </script>
 </html>
