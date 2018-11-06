@@ -6,9 +6,6 @@ define ("FICHERO", "productos.csv");
 
 class carrito {
   
-    public function __construct() {
-        fclose($gestor);
-    }
    
     public function leerScv(){
         $aData = array();
@@ -33,7 +30,7 @@ class carrito {
                  </tr>
                </thead>
                <tbody>';
-        foreach ($array as $value) {
+        foreach ($array as &$value) {
             $html .='<tr id="$value[0]">
                     <th scope="row">'.$value[0].'</th>
                     <td>'.$value[1].'</td>
