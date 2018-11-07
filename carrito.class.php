@@ -25,7 +25,7 @@ class carrito {
                  <tr>
                    <th scope="col">ID</th>
                    <th scope="col">PRODUCTOS</th>
-                   <th scope="col">PRECIO</th>
+                   <th scope="col">PRECIO €</th>
                    <th scope="col"></th>
                  </tr>
                </thead>
@@ -34,7 +34,7 @@ class carrito {
             $html .='<tr id="'.$value[0].'">
                     <th scope="row">'.$value[0].'</th>
                     <td>'.$value[1].'</td>
-                    <td>'.$value[4].' €</td>
+                    <td>'.$value[4].'</td>
                     <td><button type="button" class="btn btn-primary" onclick="enviar('.$value[0].')">+</button></td>
                   </tr>';
         }
@@ -42,15 +42,19 @@ class carrito {
         return $html;
     }
     public function insertaCarrito($datas){
-       /* $contador = 1;
-        if(isset($this->listaCompra)==$datas[1]){
-            
+        if(!isset($this->listaCompra)==$datas[1]){
+            $this->listaCompra [$datas[1]]= $datas;
         }
-        $this->listaCompra [] = $datas;*/
-        $html ='<tr id="'.$datas[1].'">
-                <th scope="row">'.$datas[3].'</th>
-                <td>'.$datas[1].'</td>
-                <td>'.$datas[2].'</td>
+        if(isset($this->listaCompra)==$datas[1]){
+            $element = $this->listaCompra [$datas[1]];
+            $element[3]++;
+            $this->listaCompra [$datas[1]]=$element;
+        }
+        $element = $this->listaCompra [$datas[1]];
+        $html ='<tr id="'.$element[1].'">
+                <th scope="row">'.$element[3].'</th>
+                <td>'.$element[1].'</td>
+                <td>'.$element[2].'</td>
               </tr>';
         
       return $html;
