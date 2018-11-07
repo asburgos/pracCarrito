@@ -56,11 +56,17 @@
                 data: {id:hijos[1].textContent,nombre:hijos[3].textContent,precio:hijos[5].textContent,accion:"anadir"},
                 success: function (response) {
                     var data = JSON.parse(response);
-                    if(data.accion == 'aumentar'){
-                        document.getElementById(data.id).innerHTML = data.html;
+                    if(data.accion === 'aumentar'){
+                        data.html.cantidad;
+                        data.html.precio;
+                        var parent = document.getElementById(data.id);
+                        var childs = parent.childNodes;
+                        childs[1].textContent(data.html.cantidad);
+                        childs[3].textContent(data.html.precio);
                     }
-                    if(data.accion == 'nuevo'){
-                       carrito.innerHTML += data.html;
+                    if(data.accion === 'nuevo'){
+                        console.log(data);
+                       carrito.innerHTML += JSON.parse(data.html);
                     }
                 }
             }) 

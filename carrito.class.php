@@ -25,7 +25,7 @@ class carrito {
                  <tr>
                    <th scope="col">ID</th>
                    <th scope="col">PRODUCTOS</th>
-                   <th scope="col">PRECIO</th>
+                   <th scope="col">PRECIO €</th>
                    <th scope="col"></th>
                  </tr>
                </thead>
@@ -34,7 +34,7 @@ class carrito {
             $html .='<tr id="'.$value[0].'">
                     <th scope="row">'.$value[0].'</th>
                     <td>'.$value[1].'</td>
-                    <td>'.$value[4].' €</td>
+                    <td>'.$value[4].'</td>
                     <td><button type="button" class="btn btn-primary" onclick="enviar('.$value[0].')">+</button></td>
                   </tr>';
         }
@@ -42,17 +42,28 @@ class carrito {
         return $html;
     }
     public function insertaCarrito($datas){
-       /* $contador = 1;
-        if(isset($this->listaCompra)==$datas[1]){
-            
-        }
-        $this->listaCompra [] = $datas;*/
-        $html ='<tr id="'.$datas[1].'">
+        $accion = '';
+        foreach ($this->listaCompra as $item){
+            var_dump('entro');
+            if($item[0]===$datas[0]){
+                (int) $item[3]++;
+                (int)$item[2] = $item[2]*$item[3];
+                $html=["id"=>$item[0],"cantidad"=>$item[3],"precio"=>$item[2]];
+                var_dump($html);
+                $accion="aumentar";
+            }else{
+                $accion = "nuevo";
+                $this->listaCompra [] = $datas;
+                $html ='<tr id="'.$datas[1].'">
                 <th scope="row">'.$datas[3].'</th>
                 <td>'.$datas[1].'</td>
                 <td>'.$datas[2].'</td>
               </tr>';
+            }
+        }
+
+
         
-      return $html;
+      return array("html"=>json_encode($html),"accion"=>$accion);
     }
 }
