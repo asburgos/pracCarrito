@@ -57,7 +57,7 @@ class carrito {
 
         if(!file_exists(JSON)){
 
-            $str="[{".$datas['id'].":{".$datas['cantidad'].",".$datas['precio']."}]";
+            $str='[{"id":'.$datas['id'].',"cantidad":'.$datas['cantidad'].',"precio":'.$datas['precio']."}]';
             file_put_contents(JSON,$str);
             $accion = "nuevo";
             $html = $pintarLinea($datas);
@@ -66,28 +66,32 @@ class carrito {
 
             $json = file_get_contents(JSON);
             $json = json_decode($json);
+            $encontrado = false;
 
-            if(isset($json[$datas['id']])){
+            foreach($json as $key => $value){
+                if($value['id'] === $datas['id'])){
 
-                $dataId = $json['id'];
-                $cantidad = (int) $dataId->cantidad++;
-                file_put_contents(JSON,json_encode($json));
+                    $json[$key]['cantidad'] = (int) $value['cantidad']++;
 
-                echo $cantidad."<- Esta es la cantidad";
-                $datas['precio'] = $datas['precio']*$cantidad;
+                    echo $cantidad."<- Esta es la cantidad";
+                    $datas['precio'] = $datas['precio']*$cantidad;
 
-                $accion = "aumentar";
-                $html = '<th scope="row">'.$cantidad.'</th>
-                <td>'.$datas['id'].'</td>
-                <td>'.$datas['precio'].'</td>';
-
-            }else{
-                $str = json_encode($json);
-                $str = rtrim($str, "]").',{"cantidad":"'.$datas['cantidad'].'","precio":"'.$datas['precio'].'"}]';
-                file_put_contents(JSON,$str);
+                    $accion = "aumentar";
+                    $html = '<th scope="row">'.$cantidad.'</th>
+                    <td>'.$datas['id'].'</td>
+                    <td>'.$datas['precio'].'</td>';
+                    $encontrado = true;
+                    break;
+                }
+            }
+            if(!$encontrado){
+               
+                $json[] = array("id"=>$datas['id'], "cantidad"=> $datas['cantidad'],"precio"=>$datas['precio']);
                 $accion = "nuevo";
                 $html = $pintarLinea($datas);
             }
+
+            file_put_contents(JSON,json_encode($json));
         }
 
         return array("html"=>$html,"id"=>$datas['id'],"accion"=>$accion);
