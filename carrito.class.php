@@ -3,9 +3,10 @@ ini_set('display_errors', 'On');
 error_reporting(E_ALL ^ E_NOTICE);
 define ("RUTA","/var/www/datas/");
 define ("FICHERO", "productos.csv");
+define("JSON",RUTA."/productos.json");
 
 class carrito {
-    private $listaCompra =[];
+    private $json;
     private $cantidad = 1;
   
     function leerScv(){
@@ -52,33 +53,43 @@ class carrito {
                 <td>'.$datas['precio'].'</td>
               </tr>';
         };
-        
-        if(empty($this->listaCompra)){
-            $this->listaCompra[$datas['id']] = $this->cantidad;
+
+        if(!file_exists(JSON)){
+
+            $str="[{".$datas['id'].":{".$datas['cantidad'].",".$datas['precio']."}]";
+            file_put_contents(JSON,$str);
             $accion = "nuevo";
             $html = $pintarLinea($datas);
+
+        }else{
+
+            $json = file_get_contents(JSON);
+            $json = json_decode($json);
+
+            if(isset($json[$datas['id']])){
+
+                $dataId = $json['id'];
+                $cantidad = (int) $dataId->cantidad++;
+                file_put_contents(JSON,json_encode($json));
+
+                echo $cantidad."<- Esta es la cantidad";
+                $datas['precio'] = $datas['precio']*$cantidad;
+
+                $accion = "aumentar";
+                $html = '<th scope="row">'.$cantidad.'</th>
+                <td>'.$datas['id'].'</td>
+                <td>'.$datas['precio'].'</td>';
+
+            }else{
+                $str = json_encode($json);
+                $str = rtrim($str, "]").',{"cantidad":"'.$datas['cantidad'].'","precio":"'.$datas['precio'].'"}]';
+                file_put_contents(JSON,$str);
+                $accion = "nuevo";
+                $html = $pintarLinea($datas);
+            }
         }
 
-        if(isset($this->listaCompra[$datas['id']])){
-            $cantidad = $this->listaCompra[$datas['id']];
-            $cantidad++;
-            //ENTRA AQUI YUJUUUUUU
-            print_r($this->listaCompra);
-            echo $cantidad."<- Esta es la cantidad";
-            $datas['precio'] = $datas['precio']*$cantidad;
-            $this->listaCompra[$datas['id']]=$cantidad;
-            
-             $accion = "aumentar";
-             $html = '<th scope="row">'.$this->cantidad.'</th>
-                <td>'.$datas['nombre'].'</td>
-                <td>'.$datas['precio'].'</td>';
-        }else{
-            $this->listaCompra [$datas['id']] = $this->cantidad;
-            $accion = "nuevo";
-            $html = $pintarLinea($datas);
-        }
         return array("html"=>$html,"id"=>$datas['id'],"accion"=>$accion);
-       
-        
+
     }
 }
