@@ -56,10 +56,11 @@
                 data: {id:hijos[1].textContent,nombre:hijos[3].textContent,precio:hijos[5].textContent,accion:"anadir"},
                 success: function (response) {
                     var data = JSON.parse(response);
-                    if(data.accion == 'aumentar'){
-                        document.getElementById(data.id).innerHTML = data.html;
+                    if(data.accion === 'aumentar'){ 
+                        var lineaModificar = document.getElementById(data.id);
+                        lineaModificar.innerHTML = data.html;
                     }
-                    if(data.accion == 'nuevo'){
+                    if(data.accion === 'nuevo'){
                        carrito.innerHTML += data.html;
                     }
                 }

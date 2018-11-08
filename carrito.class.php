@@ -6,6 +6,7 @@ define ("FICHERO", "productos.csv");
 
 class carrito {
     private $listaCompra =[];
+    private $cantidad = 1;
   
     function leerScv(){
         $aData = array();
@@ -42,21 +43,46 @@ class carrito {
         return $html;
     }
     public function insertaCarrito($datas){
-        if(!isset($this->listaCompra)==$datas[1]){
-            $this->listaCompra [$datas[1]]= $datas;
-        }
-        if(isset($this->listaCompra)==$datas[1]){
-            $element = $this->listaCompra [$datas[1]];
-            $element[3]++;
-            $this->listaCompra [$datas[1]]=$element;
-        }
-        $element = $this->listaCompra [$datas[1]];
-        $html ='<tr id="'.$element[1].'">
-                <th scope="row">'.$element[3].'</th>
-                <td>'.$element[1].'</td>
-                <td>'.$element[2].'</td>
+        $pintarLinea = function ($datas){
+           return $html ='<tr id="'.$datas['id']."_carrito".'">
+                <th scope="row">'.$this->cantidad.'</th>
+                <td>'.$datas['nombre'].'</td>
+                <td>'.$datas['precio'].'</td>
               </tr>';
+        };
         
-      return $html;
+        if(empty($this->listaCompra)){
+            $this->listaCompra [$datas['id']] = $this->cantidad;
+            $accion = "nuevo";
+            $html = $pintarLinea($datas);
+            if(isset($this->listaCompra [$datas['id']])!=$datas['id']){
+                echo "funciono";
+            }
+            return array("html"=>$html,"accion"=>$accion);
+        }
+        print_r($this->listaCompra);
+        if(isset($this->listaCompra[$datas['id']])!=$datas['id']){
+ 
+           $this->listaCompra [$datas['id']] = $this->cantidad;
+           print_r($this->listaCompra);
+           $accion = "nuevo";
+           $html = $pintarLinea($datas);
+           return array("html"=>$html,"accion"=>$accion);
+        }
+        if(isset($this->listaCompra [$datas['id']])==$datas['id']){
+            $cantidad = $this->listaCompra[$datas['id']];
+            $cantidad++;
+            echo $cantidad;
+            $datas['precio'] = $datas['precio']*$cantidad;
+            $this->listaCompra[$datas['id']]=$cantidad;
+            
+             $accion = "aumentar";
+             $html = '<th scope="row">'.$this->cantidad.'</th>
+                <td>'.$datas['nombre'].'</td>
+                <td>'.$datas['precio'].'</td>';
+        }
+        return array("html"=>$html,"id"=>$datas['id'],"accion"=>$accion);
+       
+        
     }
 }
