@@ -43,6 +43,8 @@ class carrito {
         return $html;
     }
     public function insertaCarrito($datas){
+        $html="";
+        $accion="";
         $pintarLinea = function ($datas){
            return $html ='<tr id="'.$datas['id']."_carrito".'">
                 <th scope="row">'.$this->cantidad.'</th>
@@ -52,27 +54,17 @@ class carrito {
         };
         
         if(empty($this->listaCompra)){
-            $this->listaCompra [$datas['id']] = $this->cantidad;
+            $this->listaCompra[$datas['id']] = $this->cantidad;
             $accion = "nuevo";
             $html = $pintarLinea($datas);
-            if(isset($this->listaCompra [$datas['id']])!=$datas['id']){
-                echo "funciono";
-            }
-            return array("html"=>$html,"accion"=>$accion);
         }
-        print_r($this->listaCompra);
-        if(isset($this->listaCompra[$datas['id']])!=$datas['id']){
- 
-           $this->listaCompra [$datas['id']] = $this->cantidad;
-           print_r($this->listaCompra);
-           $accion = "nuevo";
-           $html = $pintarLinea($datas);
-           return array("html"=>$html,"accion"=>$accion);
-        }
-        if(isset($this->listaCompra [$datas['id']])==$datas['id']){
+
+        if(isset($this->listaCompra[$datas['id']])){
             $cantidad = $this->listaCompra[$datas['id']];
             $cantidad++;
-            echo $cantidad;
+            //ENTRA AQUI YUJUUUUUU
+            print_r($this->listaCompra);
+            echo $cantidad."<- Esta es la cantidad";
             $datas['precio'] = $datas['precio']*$cantidad;
             $this->listaCompra[$datas['id']]=$cantidad;
             
@@ -80,6 +72,10 @@ class carrito {
              $html = '<th scope="row">'.$this->cantidad.'</th>
                 <td>'.$datas['nombre'].'</td>
                 <td>'.$datas['precio'].'</td>';
+        }else{
+            $this->listaCompra [$datas['id']] = $this->cantidad;
+            $accion = "nuevo";
+            $html = $pintarLinea($datas);
         }
         return array("html"=>$html,"id"=>$datas['id'],"accion"=>$accion);
        
