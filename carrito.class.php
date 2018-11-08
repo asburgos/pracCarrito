@@ -20,6 +20,7 @@ class carrito {
         }
         return $aData;
     }
+    
     public function crearTablaProductos ($data){
         $html='<table class="table">
                <thead>
