@@ -3,12 +3,10 @@ ini_set('display_errors', 'On');
 error_reporting(E_ALL ^ E_NOTICE);
 define ("RUTA","/var/www/datas/");
 define ("FICHERO", "productos.csv");
-define("JSON",RUTA."/productos.json");
+define("JSON","productos.json");
 
 class carrito {
-    private $json;
     private $cantidad = 1;
-  
     function leerScv(){
         $aData = array();
         $row = 0;
@@ -35,11 +33,11 @@ class carrito {
                <tbody>';
         foreach ($data as $value) {
             $html .='<tr id="'.$value[0].'">
-                    <th scope="row">'.$value[0].'</th>
-                    <td>'.$value[1].'</td>
-                    <td>'.$value[4].'</td>
-                    <td><button type="button" class="btn btn-primary" onclick="enviar('.$value[0].')">+</button></td>
-                  </tr>';
+                        <th scope="row">'.$value[0].'</th>
+                        <td>'.$value[1].'</td>
+                        <td>'.$value[4].'</td>
+                        <td><button type="button" class="btn btn-primary" onclick="enviar('.$value[0].')">+</button></td>
+                    </tr>';
         }
         $html .='</tbody></table>';
         return $html;
@@ -48,6 +46,7 @@ class carrito {
         $html="";
         $accion="";
         $pintarLinea = function ($datas){
+
            return $html ='<tr id="'.$datas['id']."_carrito".'">
                 <th scope="row">'.$this->cantidad.'</th>
                 <td>'.$datas['nombre'].'</td>
@@ -74,9 +73,10 @@ class carrito {
 
                     $json[$key]['cantidad'] = (int) $value['cantidad']++;
                     $cantidad = $value['cantidad'];
-                    $datas['precio'] = $datas['precio']*$cantidad;
-
+                    $json[$key]['precio'] = $datas['precio']*$cantidad;
+                    echo $json[$key]['precio'];
                     $accion = "aumentar";
+
                     $html = '<th scope="row">'.$cantidad.'</th>
                     <td>'.$datas['id'].'</td>
                     <td>'.$datas['precio'].'</td>';
